@@ -15,5 +15,4 @@ Frontend: [React](https://react.dev/) + [Typescript](https://www.typescriptlang.
 
 Backend: [Spring Boot](https://docs.spring.io/spring-boot/index.html)
 
-Persistence: [Redis](https://redis.io/docs/latest/) for real-time race data, [PostgreSQL](https://a.postgresql.
-org/docs/current/) for persistent results/history.
+Persistence: [Redis](https://redis.io/docs/latest/) for real-time race data, [PostgreSQL](https://a.postgresql.org/docs/current/) for persistent results/history.
