@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useControls } from "@/hooks/useControls.ts";
+import { drawTrack } from "@/lib/trackRenderer.ts";
 
 interface PodState {
   x: number;
@@ -11,14 +12,15 @@ interface PodState {
 const FRICTION = 0.95;
 const ACCELERATION = 100; // pixels per second
 const STEERING_SENSITIVITY = 2; // radians per second
+const PADDING = 10; // keep the pod inside the canvas
 
 export default function Track() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const podRef = useRef<PodState>({
-    x: 300,
-    y: 300,
+    x: 60,
+    y: 80,
     velocity: 0,
-    angle: 0,
+    angle: 60,
   });
 
   const controls = useControls();
@@ -57,12 +59,39 @@ export default function Track() {
       pod.x += pod.velocity * Math.cos(pod.angle) * dt;
       pod.y += pod.velocity * Math.sin(pod.angle) * dt;
 
+      // track boundaries
+      const maxX = context.canvas.width - PADDING;
+      const maxY = context.canvas.height - PADDING;
+      const minX = PADDING;
+      const minY = PADDING;
+
+      // clamp movement to the track boundaries and set velocity to 0 (simulating crash)
+      if (pod.x < minX) {
+        pod.x = minX;
+        pod.velocity = 0;
+      }
+      if (pod.x > maxX) {
+        pod.x = maxX;
+        pod.velocity = 0;
+      }
+      if (pod.y < minY) {
+        pod.y = minY;
+        pod.velocity = 0;
+      }
+      if (pod.y > maxY) {
+        pod.y = maxY;
+        pod.velocity = 0;
+      }
+
       // clear and redraw
       context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+      drawTrack(context);
+
+      // draw pod
       context.save();
       context.translate(pod.x, pod.y);
       context.rotate(pod.angle);
-      context.fillStyle = "red";
+      context.fillStyle = "orange";
       context.fillRect(-10, -5, 20, 10);
       context.restore();
 
