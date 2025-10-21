@@ -21,7 +21,7 @@ export default function ControlsBox({
   return (
     <div
       className={
-        "text-white grid gap-4 border w-1/3 p-4 m-4 rounded-xl justify-start "
+        "text-white grid gap-4 border p-4 m-4 rounded-xl justify-start "
       }
     >
       <h2 className={"font-bold text-2xl"}>Controls</h2>

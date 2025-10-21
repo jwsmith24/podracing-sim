@@ -4,6 +4,7 @@ import { drawTrack } from "@/lib/trackRenderer.ts";
 import type { PodState } from "@/types/PodState.ts";
 import ControlsBox from "@/components/ControlsBox.tsx";
 import { useRaceSocket } from "@/hooks/useRaceSocket.ts";
+import ActivePodsTable from "@/components/ActivePodsTable.tsx";
 
 export default function Track() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -44,7 +45,9 @@ export default function Track() {
 
   return (
     <div
-      className={"flex flex-col justify-center items-center h-screen bg-black"}
+      className={
+        "flex flex-col justify-center items-center h-screen bg-black gap-4"
+      }
     >
       <canvas
         role={"presentation"}
@@ -53,11 +56,19 @@ export default function Track() {
         height={600}
         className={"border border-gray-600 bg-gray-900"}
       />
-      <ControlsBox
-        controls={controls}
-        racerId={racerId}
-        setRacerId={setRacerId}
-      />
+      <div className={"w-full flex"}>
+        <div className={"w-1/2"}>
+          <ControlsBox
+            controls={controls}
+            racerId={racerId}
+            setRacerId={setRacerId}
+          />
+        </div>
+
+        <div className={"w-1/2 text-white"}>
+          <ActivePodsTable />
+        </div>
+      </div>
     </div>
   );
 }
