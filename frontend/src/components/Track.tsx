@@ -1,13 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useControls } from "@/hooks/useControls.ts";
 import { drawTrack } from "@/lib/trackRenderer.ts";
-
-interface PodState {
-  x: number;
-  y: number;
-  velocity: number;
-  angle: number;
-}
+import type { PodState } from "@/types/PodState.ts";
+import { Input } from "@/components/ui/input.tsx";
+import { Label } from "@/components/ui/label.tsx";
+import { Button } from "@/components/ui/button.tsx";
 
 const FRICTION = 0.95;
 const ACCELERATION = 100; // pixels per second
@@ -16,14 +13,16 @@ const PADDING = 10; // keep the pod inside the canvas
 
 export default function Track() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const podRef = useRef<PodState>({
-    x: 60,
-    y: 80,
-    velocity: 0,
-    angle: 60,
-  });
-
   const controls = useControls();
+
+  const [racerId, setRacerId] = useState(
+    "Player-" + Math.floor(Math.random() * 1000),
+  );
+  const [racerIdInput, setRacerIdInput] = useState(racerId);
+  const [hasSetId, setHasSetId] = useState(false);
+
+  const [pods, setPods] = useState<Record<string, PodState>>({});
+  const playerId = "Player-";
 
   const controlsRef = useRef(controls);
 
@@ -122,6 +121,31 @@ export default function Track() {
         <h2 className={"font-bold text-2xl"}>Controls</h2>
         <p>Throttle: {controls.throttle}</p>
         <p>Steering: {controls.steering}</p>
+        <div className={"flex gap-4"}>
+          <Label htmlFor={"racer-id-input"}>
+            {" "}
+            Racer:
+            <Input
+              name={"racer-id-input"}
+              value={racerIdInput}
+              onChange={(event) => setRacerIdInput(event.target.value)}
+              disabled={hasSetId}
+            ></Input>
+          </Label>
+          <Button
+            className={
+              "cursor-pointer hover:bg-green-400 " +
+              `${hasSetId ? "hidden" : ""}`
+            }
+            onClick={() => {
+              setRacerId(racerIdInput);
+              setHasSetId(true);
+            }}
+            disabled={hasSetId}
+          >
+            Set RacerID
+          </Button>
+        </div>
       </div>
     </div>
   );
