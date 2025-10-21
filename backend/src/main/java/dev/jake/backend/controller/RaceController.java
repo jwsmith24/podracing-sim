@@ -26,7 +26,7 @@ public class RaceController {
     @MessageMapping("/race/control")
     public void receiveControl(ControlInput input) {
 
-        double dt = 0.016;
+        double dt = 0.016; // normalized framerate ~60 fps (1/60)
 
         // update pod states
         Map<String, PodState> updatedPods = raceService.update(input, dt);

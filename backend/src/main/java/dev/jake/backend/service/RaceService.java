@@ -20,7 +20,7 @@ public class RaceService {
         PodState pod = pods.computeIfAbsent(input.playerId(),
                 id -> new PodState(id, 60d, 80d, 0d, 0d));
 
-        double velocity = pod.velocity() + input.throttle() * 100 * dt;
+        double velocity = pod.velocity() + input.throttle() * 40 * dt;
         double angle = pod.angle() + input.steering() * 2 * dt;
 
         double x = pod.x() + velocity * Math.cos(pod.angle()) * dt;
