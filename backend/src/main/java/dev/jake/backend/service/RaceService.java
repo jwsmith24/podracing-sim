@@ -2,23 +2,24 @@ package dev.jake.backend.service;
 
 import dev.jake.backend.dto.ControlInput;
 import dev.jake.backend.dto.PodState;
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Service
-public class RaceService {
+import static dev.jake.backend.util.TrackConstants.*;
 
-    private final int TRACK_PADDING = 10;
-    private final int TRACK_LENGTH = 800;
-    private final int TRACK_HEIGHT = 600;
+@Service
+@Getter
+public class RaceService {
 
     private final Map<String, PodState> pods = new ConcurrentHashMap<>();
 
     public Map<String, PodState> update(ControlInput input, double dt) {
         PodState pod = pods.computeIfAbsent(input.playerId(),
-                id -> new PodState(id, 60d, 80d, 0d, 0d));
+                id -> new PodState(id, STARTING_X_POSITION, STARTING_Y_POSITION,
+                        STARTING_VELOCITY, STARTING_ANGLE));
 
         double velocity = pod.velocity() + input.throttle() * 40 * dt;
         double angle = pod.angle() + input.steering() * 2 * dt;
@@ -59,6 +60,10 @@ public class RaceService {
         pods.put(pod.playerId(), updatedPod);
         return pods;
 
+    }
+
+    public void clearPods() {
+        pods.clear();
     }
 
 }
