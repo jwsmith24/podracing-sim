@@ -16,4 +16,7 @@ export default defineConfig({
     globals: true,
     setupFiles: "./src/setupTests.ts",
   },
+  define: {
+    global: "window",
+  },
 });
