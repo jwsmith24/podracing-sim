@@ -14,8 +14,9 @@ type NavItem = {
 
 export default function Navbar() {
   const navBarOptions: NavItem[] = [
-    { label: "Home", path: "/home" },
-    { label: "Build", path: "/build" },
+    { label: "Home", path: "/" },
+    { label: "Build", path: "/builder" },
+    { label: "Garage", path: "/garage" },
     { label: "Race", path: "/race" },
   ];
   return (
