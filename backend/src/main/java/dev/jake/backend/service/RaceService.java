@@ -1,7 +1,8 @@
 package dev.jake.backend.service;
 
-import dev.jake.backend.dto.ControlInput;
-import dev.jake.backend.dto.PodState;
+import dev.jake.backend.model.dto.ws.ControlInput;
+import dev.jake.backend.model.dto.ws.PodState;
+import dev.jake.backend.service.exceptions.PodNotFoundException;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
@@ -64,6 +65,14 @@ public class RaceService {
 
     public void clearPods() {
         pods.clear();
+    }
+
+    public PodState getPod(String racerId) {
+        PodState result = pods.get(racerId);
+
+        if (result == null) throw new PodNotFoundException(racerId);
+
+        return result;
     }
 
 }

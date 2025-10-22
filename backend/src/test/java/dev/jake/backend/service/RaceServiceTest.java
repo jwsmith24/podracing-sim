@@ -1,7 +1,8 @@
 package dev.jake.backend.service;
 
-import dev.jake.backend.dto.ControlInput;
-import dev.jake.backend.dto.PodState;
+import dev.jake.backend.model.dto.ws.ControlInput;
+import dev.jake.backend.model.dto.ws.PodState;
+import dev.jake.backend.service.exceptions.PodNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -67,8 +68,20 @@ class RaceServiceTest {
 
         assertTrue(raceService.getPods().isEmpty(), "Pods map should be empty after a clear");
 
+    }
 
+    @Test
+    void getPod_shouldReturnValidPod() {
+        raceService.update(new ControlInput("test-1", 1.0, 0.0), FRAME_RATE_60_HZ);
+        raceService.update(new ControlInput("test-2", 1.0, 0.0), FRAME_RATE_60_HZ);
+        assertFalse(raceService.getPods().isEmpty());
 
+        assertNotNull(raceService.getPod("test-2"));
+    }
+
+    @Test
+    void getPod_shouldThrowIfNotFound() {
+        assertThrows(PodNotFoundException.class, () -> raceService.getPod("does not exist"));
     }
 
 }

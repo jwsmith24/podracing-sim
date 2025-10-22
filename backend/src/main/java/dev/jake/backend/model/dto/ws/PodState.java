@@ -1,4 +1,4 @@
-package dev.jake.backend.dto;
+package dev.jake.backend.model.dto.ws;
 
 public record PodState(
         String playerId,

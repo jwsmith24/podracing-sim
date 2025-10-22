@@ -1,7 +1,7 @@
-package dev.jake.backend.controller;
+package dev.jake.backend.controller.ws;
 
-import dev.jake.backend.dto.ControlInput;
-import dev.jake.backend.dto.PodState;
+import dev.jake.backend.model.dto.ws.ControlInput;
+import dev.jake.backend.model.dto.ws.PodState;
 import dev.jake.backend.service.RaceService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Controller;
 import java.util.Map;
 
 @Controller
-public class RaceController {
+public class RaceWebSocketController {
 
     private final RaceService raceService;
     private final SimpMessagingTemplate messagingTemplate;
 
-    public RaceController (RaceService raceService, SimpMessagingTemplate messagingTemplate) {
+    public RaceWebSocketController(RaceService raceService, SimpMessagingTemplate messagingTemplate) {
         this.raceService = raceService;
         this.messagingTemplate = messagingTemplate;
     }
