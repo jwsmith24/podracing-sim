@@ -16,6 +16,7 @@ describe("Garage table", () => {
     expect(screen.getByText(/name/i)).toBeVisible();
     expect(screen.getByText(/color/i)).toBeVisible();
     expect(screen.getByText(/armor rating/i)).toBeVisible();
+    expect(screen.getByText(/value/i)).toBeVisible();
   });
 
   it("should render 10 mock pods in the table plus header row (11 total)", () => {

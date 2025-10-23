@@ -1,13 +1,12 @@
 package dev.jake.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 
@@ -31,7 +30,11 @@ public class PodRacer {
 
     private Double value = 100.00;
 
+    @CreationTimestamp
+    @Column(updatable = false, nullable = false)
     private Instant createdOn;
 
+    @UpdateTimestamp
+    @Column(nullable = false)
     private Instant updatedOn;
 }

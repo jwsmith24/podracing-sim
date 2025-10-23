@@ -13,6 +13,12 @@ interface GarageTableProps {
   pods: PodBuildData[];
 }
 export default function GarageTable({ pods }: GarageTableProps) {
+  const formatValue = (value: number) => {
+    return Intl.NumberFormat("en-us", {
+      style: "currency",
+      currency: "USD",
+    }).format(value);
+  };
   return (
     <div className={"bg-white m-4 p-4 rounded-xl shadow-xl"}>
       <Table>
@@ -23,6 +29,7 @@ export default function GarageTable({ pods }: GarageTableProps) {
             <TableHead>Engine Count</TableHead>
             <TableHead>Color</TableHead>
             <TableHead>Armor Rating</TableHead>
+            <TableHead>Value</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -43,6 +50,9 @@ export default function GarageTable({ pods }: GarageTableProps) {
                   ></div>
                 </TableCell>
                 <TableCell>{pod.armorRating}</TableCell>
+                <TableCell>
+                  {pod.value ? formatValue(pod.value) : formatValue(100)}
+                </TableCell>
               </TableRow>
             );
           })}
