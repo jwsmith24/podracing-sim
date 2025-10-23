@@ -62,7 +62,7 @@ public class PodController {
 
     @PatchMapping("/{podId}")
     public ResponseEntity<PodRacerDto> updatePod(@PathVariable Long podId,
-                                                 @RequestBody UpdatePodRequest request) {
+                                                 @Valid @RequestBody UpdatePodRequest request) {
         log.info("Updating pod info");
 
         return ResponseEntity.ok(podService.updatePod(podId, request));

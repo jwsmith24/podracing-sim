@@ -9,6 +9,8 @@ import dev.jake.backend.repo.PodRacerRepository;
 import dev.jake.backend.service.exceptions.PodNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 @Service
@@ -27,10 +29,18 @@ public class PodService {
         pod.setColor(request.color());
         pod.setEngineCount(request.engineCount());
         pod.setArmorRating(request.armorRating());
+        pod.setValue(generateRandomValue());
 
         PodRacer saved = podRacerRepository.save(pod);
 
         return PodMapper.toDto(saved);
+    }
+
+    private double generateRandomValue() {
+        double value = Math.random() * 100;
+        return  BigDecimal.valueOf(value)
+                .setScale(2, RoundingMode.HALF_UP)
+                .doubleValue();
     }
 
     public List<PodRacerDto> getAllPods() {
