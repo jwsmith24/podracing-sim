@@ -14,10 +14,12 @@ import java.time.Instant;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "podracer")
 public class PodRacer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pod_id")
     private Long id;
 
     private String name;
@@ -28,13 +30,14 @@ public class PodRacer {
 
     private Integer armorRating;
 
+    @Column(name = "pod_value")
     private Double value = 100.00;
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
-    private Instant createdOn;
+    private Instant createdAt;
 
     @UpdateTimestamp
     @Column(nullable = false)
-    private Instant updatedOn;
+    private Instant updatedAt;
 }

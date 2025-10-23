@@ -1,2 +1,17 @@
-### GET pods
+
+### Create a new pod
+POST http://localhost:8080/api/garage
+Content-Type: application/json
+
+{
+  "name": "htt-pod",
+  "engineCount": 3,
+  "color": "#7DF9FF",
+  "armorRating": 5
+}
+
+
+
+
+### GET actively racing pods
 GET http://localhost:8080/api/race/pods
