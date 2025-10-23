@@ -1,12 +1,19 @@
 import GarageTable from "@/components/GarageTable.tsx";
-import { mockPods } from "@/types/PodBuilderData.ts";
+import { useGarage } from "@/hooks/useGarage.ts";
+import { Spinner } from "@/components/ui/spinner.tsx";
 
 export default function Garage() {
+  const { data, loading, error } = useGarage();
+
   return (
     <div className={"h-full w-full grid"}>
       <h1 className={"text-white font-bold p-2 "}>Garage</h1>
       <div>
-        <GarageTable pods={mockPods} />
+        {loading && <Spinner />}
+
+        {error && <div className={"text-red-400"}>{error.message}</div>}
+
+        {!loading && !error && <GarageTable pods={data} />}
       </div>
     </div>
   );

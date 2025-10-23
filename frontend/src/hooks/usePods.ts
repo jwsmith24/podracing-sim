@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import type { PodState } from "@/types/PodState.ts";
-import { getActivePods } from "@/api/pods.ts";
+import { getActivePods } from "@/api/racingPods.ts";
 
 export function usePods() {
   const [loading, setLoading] = useState(false);
