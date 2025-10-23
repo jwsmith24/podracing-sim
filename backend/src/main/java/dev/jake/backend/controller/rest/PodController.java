@@ -57,6 +57,7 @@ public class PodController {
     @DeleteMapping("/{podId}")
     public ResponseEntity<Void> deletePod(@PathVariable Long podId){
         log.info("deleting pod with id={}", podId);
+        podService.deletePod(podId);
         return ResponseEntity.noContent().build();
     }
 

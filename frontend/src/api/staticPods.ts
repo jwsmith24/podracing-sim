@@ -28,7 +28,7 @@ export const deletePod = async (podId: number) => {
   const path = `/api/garage/${podId}`;
   const result = await axios.delete(path);
 
-  console.log(`deleted pod with id ${podId}.. got: `, result.data);
+  console.log(`deleted pod with id ${podId}.. got: `, result);
 
   return result.data;
 };

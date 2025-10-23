@@ -3,7 +3,7 @@ import { useGarage } from "@/hooks/useGarage.ts";
 import { Spinner } from "@/components/ui/spinner.tsx";
 
 export default function Garage() {
-  const { data, loading, error } = useGarage();
+  const { data, loading, error, refetch } = useGarage();
 
   return (
     <div className={"h-full w-full grid"}>
@@ -13,7 +13,7 @@ export default function Garage() {
 
         {error && <div className={"text-red-400"}>{error.message}</div>}
 
-        {!loading && !error && <GarageTable pods={data} />}
+        {!loading && !error && <GarageTable pods={data} refetch={refetch} />}
       </div>
     </div>
   );

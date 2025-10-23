@@ -11,26 +11,55 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label.tsx";
 import { Input } from "@/components/ui/input.tsx";
 import type { PodBuildData } from "@/types/PodBuilderData.ts";
+import { createPod, updatePod } from "@/api/staticPods.ts";
 
-export default function PodBuilder() {
+interface PodBuilderProps {
+  editMode: boolean;
+  pod?: PodBuildData;
+  onClose?: () => void;
+}
+export default function PodBuilder({
+  editMode,
+  pod,
+  onClose,
+}: PodBuilderProps) {
   const MAX_ARMOR_RATING = 5;
   const MIN_ARMOR_RATING = 0;
   const MIN_ENGINE_COUNT = 1;
   const MAX_ENGINE_COUNT = 4;
 
-  const [buildData, setBuildData] = useState<PodBuildData>({
-    name: "",
-    engineCount: MIN_ENGINE_COUNT,
-    color: "#000",
-    armorRating: MIN_ARMOR_RATING,
-  });
+  let initialState;
+
+  if (editMode && pod) {
+    initialState = pod;
+  } else {
+    initialState = {
+      name: "",
+      engineCount: MIN_ENGINE_COUNT,
+      color: "#000000",
+      armorRating: MIN_ARMOR_RATING,
+    };
+  }
+
+  const [buildData, setBuildData] = useState<PodBuildData>(initialState);
+
+  const handleBuild = async () => {
+    if (editMode) {
+      await updatePod(buildData);
+    } else {
+      await createPod(buildData);
+    }
+    // reset fields
+    setBuildData(initialState);
+    onClose?.();
+  };
 
   return (
     <div className={"h-full grid justify-center items-center"}>
       <section>
         <Card>
           <CardHeader>
-            <CardTitle>Build Your Pod</CardTitle>
+            <CardTitle>{editMode ? "Edit" : "Build"} Your Pod</CardTitle>
             <CardDescription className={"grid gap-2"}>
               <p>
                 Choose a name, number of engines, color, and the armor rating.
@@ -154,7 +183,7 @@ export default function PodBuilder() {
             </div>
           </CardContent>
           <CardFooter className={"flex items-center justify-center"}>
-            <Button className={"w-3/5"} onClick={() => console.log(buildData)}>
+            <Button className={"w-3/5"} onClick={handleBuild}>
               Build
             </Button>
           </CardFooter>

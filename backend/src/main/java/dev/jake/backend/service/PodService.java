@@ -7,6 +7,7 @@ import dev.jake.backend.model.dto.request.UpdatePodRequest;
 import dev.jake.backend.model.dto.response.PodRacerDto;
 import dev.jake.backend.repo.PodRacerRepository;
 import dev.jake.backend.service.exceptions.PodNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ import java.math.RoundingMode;
 import java.util.List;
 
 @Service
+@Transactional
 public class PodService {
 
     private final PodRacerRepository podRacerRepository;

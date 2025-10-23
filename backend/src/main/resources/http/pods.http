@@ -10,7 +10,8 @@ Content-Type: application/json
   "armorRating": 5
 }
 
-
+###
+DELETE http://localhost:8080/api/garage/3
 
 
 ### GET actively racing pods
