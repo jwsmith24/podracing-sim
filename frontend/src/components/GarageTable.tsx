@@ -11,9 +11,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button.tsx";
 import { Dialog, DialogContent } from "@/components/ui/dialog.tsx";
 
-import PodBuilder from "@/pages/PodBuilder.tsx";
+import PodBuilder from "@/components/PodBuilder.tsx";
 
-import { deletePod } from "@/api/staticPods.ts";
+import { deletePod } from "@/api/garageAPI.ts";
+import { toast } from "sonner";
 
 interface GarageTableProps {
   pods: PodBuildData[];
@@ -45,11 +46,12 @@ export default function GarageTable({ pods, refetch }: GarageTableProps) {
 
     await deletePod(activePod.id);
     await refetch();
+    toast.success("Pod deleted!");
   };
 
   return (
     <>
-      <div className={"bg-white m-4 p-4 rounded-xl shadow-xl"}>
+      <div className={"bg-card m-4 p-4 rounded-xl shadow-xl"}>
         <Table>
           <TableHeader>
             <TableRow>
@@ -66,7 +68,7 @@ export default function GarageTable({ pods, refetch }: GarageTableProps) {
                 <TableRow
                   key={pod?.id ?? index}
                   role={"row"}
-                  className={`cursor-pointer ${activePod?.id === pod.id ? "bg-blue-400 hover:bg-blue-400 ring-blue-600 ring-2 font-semibold" : ""} transition-all ease-in-out`}
+                  className={`cursor-pointer ${activePod?.id === pod.id ? "bg-primary hover:bg-primary font-semibold" : ""} transition-all ease-in-out`}
                   onClick={() => setActivePod(pod)}
                 >
                   <TableCell>{pod.name}</TableCell>
@@ -94,10 +96,16 @@ export default function GarageTable({ pods, refetch }: GarageTableProps) {
         >
           {activePod && (
             <>
-              <Button className={`hover:bg-blue-400`} onClick={openDialog}>
+              <Button
+                className={`bg-white hover:bg-green-400`}
+                onClick={openDialog}
+              >
                 Update
               </Button>
-              <Button className={` hover:bg-red-500`} onClick={handleDelete}>
+              <Button
+                className={` hover:bg-primary bg-white`}
+                onClick={handleDelete}
+              >
                 Delete
               </Button>
             </>

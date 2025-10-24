@@ -11,7 +11,9 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label.tsx";
 import { Input } from "@/components/ui/input.tsx";
 import type { PodBuildData } from "@/types/PodBuilderData.ts";
-import { createPod, updatePod } from "@/api/staticPods.ts";
+import { createPod, updatePod } from "@/api/garageAPI.ts";
+import { toast } from "sonner";
+import { useNavigate } from "react-router";
 
 interface PodBuilderProps {
   editMode: boolean;
@@ -43,11 +45,16 @@ export default function PodBuilder({
 
   const [buildData, setBuildData] = useState<PodBuildData>(initialState);
 
+  const navigate = useNavigate();
+
   const handleBuild = async () => {
     if (editMode) {
       await updatePod(buildData);
+      toast.success("Pod updated!");
     } else {
       await createPod(buildData);
+      toast.success("Pod created!");
+      navigate("/garage");
     }
     // reset fields
     setBuildData(initialState);
@@ -184,7 +191,7 @@ export default function PodBuilder({
           </CardContent>
           <CardFooter className={"flex items-center justify-center"}>
             <Button className={"w-3/5"} onClick={handleBuild}>
-              Build
+              {editMode ? "Update" : "Build"}
             </Button>
           </CardFooter>
         </Card>

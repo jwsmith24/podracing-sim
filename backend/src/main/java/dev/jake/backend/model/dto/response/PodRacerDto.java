@@ -5,6 +5,7 @@ public record PodRacerDto(
         String name,
         String color,
         Integer engineCount,
-        Integer armorRating
+        Integer armorRating,
+        Double value
 ) {
 }

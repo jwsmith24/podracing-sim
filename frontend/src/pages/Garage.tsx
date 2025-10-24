@@ -6,8 +6,9 @@ export default function Garage() {
   const { data, loading, error, refetch } = useGarage();
 
   return (
-    <div className={"h-full w-full grid"}>
-      <h1 className={"text-white font-bold p-2 "}>Garage</h1>
+    <div className={"h-full w-full flex flex-col justify-center"}>
+      <h1 className={"text-yellow-400 font-bold p-2 text-center"}>Garage</h1>
+
       <div>
         {loading && <Spinner />}
 

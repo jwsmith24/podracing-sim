@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import PodBuilder from "@/pages/PodBuilder.tsx";
+import PodBuilder from "@/components/PodBuilder.tsx";
 
 describe("PodBuilder", () => {
   it("should prompt the user to build their pod", () => {

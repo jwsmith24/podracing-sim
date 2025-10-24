@@ -9,7 +9,8 @@ public class PodMapper {
                 pod.getName(),
                 pod.getColor(),
                 pod.getEngineCount(),
-                pod.getArmorRating()
+                pod.getArmorRating(),
+                pod.getValue()
         );
     }
 }

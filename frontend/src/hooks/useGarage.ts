@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import type { PodBuildData } from "@/types/PodBuilderData.ts";
-import { getPods } from "@/api/staticPods.ts";
+import { getPods } from "@/api/garageAPI.ts";
 
 export function useGarage() {
   const [loading, setLoading] = useState(false);
@@ -12,6 +12,7 @@ export function useGarage() {
       setLoading(true);
       const pods = await getPods();
       setData(pods);
+      console.log("got pods:", pods);
       return pods;
     } catch (error) {
       setError(error as Error);
