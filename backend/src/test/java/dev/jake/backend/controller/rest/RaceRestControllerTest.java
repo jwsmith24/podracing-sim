@@ -49,11 +49,11 @@ class RaceRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$").isMap())
-                .andExpect(jsonPath("$.player1.playerId").value("test-player"))
-                .andExpect(jsonPath("$.player1.x").value(STARTING_X_POSITION))
-                .andExpect(jsonPath("$.player1.y").value(STARTING_Y_POSITION))
-                .andExpect(jsonPath("$.player1.velocity").value(STARTING_VELOCITY))
-                .andExpect(jsonPath("$.player1.angle").value(STARTING_ANGLE));
+                .andExpect(jsonPath("$.test-player.playerId").value("test-player"))
+                .andExpect(jsonPath("$.test-player.x").value(STARTING_X_POSITION))
+                .andExpect(jsonPath("$.test-player.y").value(STARTING_Y_POSITION))
+                .andExpect(jsonPath("$.test-player.velocity").value(STARTING_VELOCITY))
+                .andExpect(jsonPath("$.test-player.angle").value(STARTING_ANGLE));
     }
 
     @Test

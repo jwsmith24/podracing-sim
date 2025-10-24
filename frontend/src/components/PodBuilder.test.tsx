@@ -1,14 +1,23 @@
 import { render, screen } from "@testing-library/react";
 import PodBuilder from "@/components/PodBuilder.tsx";
+import { MemoryRouter } from "react-router";
+
+const renderWithMemoryRouter = () => {
+  render(
+    <MemoryRouter>
+      <PodBuilder />
+    </MemoryRouter>,
+  );
+};
 
 describe("PodBuilder", () => {
   it("should prompt the user to build their pod", () => {
-    render(<PodBuilder />);
+    renderWithMemoryRouter();
     expect(screen.getByText(/build your pod/i)).toBeVisible();
   });
 
   it("should have a description", () => {
-    render(<PodBuilder />);
+    renderWithMemoryRouter();
     expect(
       screen.getByText(
         /Choose a name, number of engines, color, and the armor rating./,
@@ -17,24 +26,24 @@ describe("PodBuilder", () => {
   });
 
   it("should have a selector for engine count", () => {
-    render(<PodBuilder />);
+    renderWithMemoryRouter();
     expect(
       screen.getByRole("spinbutton", { name: /engine count/i }),
     ).toBeVisible();
   });
 
   it("should have an input for name", () => {
-    render(<PodBuilder />);
+    renderWithMemoryRouter();
     expect(screen.getByRole("textbox", { name: /name/i })).toBeVisible();
   });
 
   it("should have an input for color", () => {
-    render(<PodBuilder />);
+    renderWithMemoryRouter();
     expect(screen.getByRole("textbox", { name: /pod color/i })).toBeVisible();
   });
 
   it("should have a selector for armor rating", () => {
-    render(<PodBuilder />);
+    renderWithMemoryRouter();
     expect(
       screen.getByRole("spinbutton", { name: /armor rating/i }),
     ).toBeVisible();

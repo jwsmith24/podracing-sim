@@ -41,10 +41,10 @@ class PodControllerTest {
 
     @BeforeEach
     void setup() {
-        mockPod = new PodRacerDto(1L, "racer-1", "#000000", 2, 1);
+        mockPod = new PodRacerDto(1L, "racer-1", "#000000", 2, 1, 100.00);
 
         mockPodList = List.of(mockPod,
-                new PodRacerDto(2L, "racer-2", "#ffffff", 4, 3));
+                new PodRacerDto(2L, "racer-2", "#ffffff", 4, 3, 100.00));
     }
 
     @Test
@@ -64,7 +64,8 @@ class PodControllerTest {
                 .andExpect(jsonPath("$.name").value("racer-1"))
                 .andExpect(jsonPath("$.color").value("#000000"))
                 .andExpect(jsonPath("$.engineCount").value(2))
-                .andExpect(jsonPath("$.armorRating").value(1));
+                .andExpect(jsonPath("$.armorRating").value(1))
+                        .andExpect(jsonPath("$.value").value(100.00));
 
 
         verify(podService).createPod(any(CreatePodRequest.class));
@@ -111,7 +112,7 @@ class PodControllerTest {
     @Test
     void updatePod_ShouldOnlyUpdateEngineCount() throws Exception {
         PodRacerDto updatedEnginePod = new PodRacerDto(mockPod.id(), mockPod.name(),
-                mockPod.color(), 4, mockPod.armorRating());
+                mockPod.color(), 4, mockPod.armorRating(), mockPod.value());
 
         when(podService.updatePod(any(Long.class), any(UpdatePodRequest.class)))
                 .thenReturn(updatedEnginePod);

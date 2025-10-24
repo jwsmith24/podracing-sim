@@ -12,7 +12,7 @@ export default function Garage() {
       <div>
         {loading && <Spinner />}
 
-        {error && <div className={"text-red-400"}>{error.message}</div>}
+        {error && <div className={"text-destructive"}>{error.message}</div>}
 
         {!loading && !error && <GarageTable pods={data} refetch={refetch} />}
       </div>

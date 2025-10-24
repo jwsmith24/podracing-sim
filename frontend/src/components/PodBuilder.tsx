@@ -15,13 +15,15 @@ import { createPod, updatePod } from "@/api/garageAPI.ts";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
 
+import sebulbaPath from "@/assets/sebulba.jpg";
+
 interface PodBuilderProps {
-  editMode: boolean;
+  editMode?: boolean;
   pod?: PodBuildData;
   onClose?: () => void;
 }
 export default function PodBuilder({
-  editMode,
+  editMode = false,
   pod,
   onClose,
 }: PodBuilderProps) {
@@ -50,10 +52,20 @@ export default function PodBuilder({
   const handleBuild = async () => {
     if (editMode) {
       await updatePod(buildData);
-      toast.success("Pod updated!");
+      toast.success(
+        <div className={"flex gap-2 items-center justify-between"}>
+          <p>Pod updated!</p>
+          <img src={sebulbaPath} alt="" />
+        </div>,
+      );
     } else {
       await createPod(buildData);
-      toast.success("Pod created!");
+      toast.success(
+        <div className={"flex gap-2 items-center"}>
+          <p>Pod created!</p>
+          <img src={sebulbaPath} alt="" />
+        </div>,
+      );
       navigate("/garage");
     }
     // reset fields

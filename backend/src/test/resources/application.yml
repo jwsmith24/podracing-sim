@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5439/postgres_test_db
+    username: podracing-user
+    password: root

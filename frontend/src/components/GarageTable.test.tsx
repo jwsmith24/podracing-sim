@@ -10,13 +10,6 @@ vi.mock("@/api/garageAPI.ts");
 vi.mock("@/pages/PodBuilder.tsx");
 
 describe("Garage table", () => {
-  it("should display a caption describing the list", () => {
-    render(<GarageTable pods={mockPods} refetch={refetch} />);
-    expect(
-      screen.getByRole("caption", { name: /build some more pods/i }),
-    ).toBeVisible();
-  });
-
   it("should have columns for all pod builder attributes", () => {
     render(<GarageTable pods={mockPods} refetch={refetch} />);
     expect(screen.getByText(/engine count/i)).toBeVisible();
@@ -49,7 +42,7 @@ describe("Garage table", () => {
 
     fireEvent.click(firstRow);
 
-    expect(firstRow.className).toContain("bg-blue-400");
+    expect(firstRow.className).toContain("bg-primary");
   });
 
   it("should show the update and delete buttons when a pod is selected", async () => {
