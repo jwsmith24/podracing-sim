@@ -12,7 +12,6 @@ export function useGarage() {
       setLoading(true);
       const pods = await getPods();
       setData(pods);
-      console.log("got pods:", pods);
       return pods;
     } catch (error) {
       setError(error as Error);
