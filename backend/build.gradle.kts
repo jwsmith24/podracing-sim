@@ -6,7 +6,7 @@ plugins {
 
 group = "dev.jake"
 version = "0.0.1-SNAPSHOT"
-description = "backend"
+description = "podracing-backend"
 
 java {
     toolchain {
