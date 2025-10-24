@@ -2,11 +2,6 @@ spring:
   application:
     name: PodracerBackend
 
-  datasource:
-    url: jdbc:postgresql://localhost:5438/podracing_db
-    username: podracing-user
-    password: root
-
   jpa:
     hibernate:
       ddl-auto: none
